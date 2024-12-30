@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{Fragment/Headeric :: head}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{Fragment/Header :: head}"></th:block>
+
+<!-- Main -->
+<script>
+    document.title = "Điều Khoản Và Điều Kiện | Thuê Sách";
+</script>
+<div class="container my-5">
+    <div class="d-flex justify-content-center">
+        <h1>Điều Khoản Và Điều Kiện
+            <hr>
+        </h1>
+    </div>
+
+    <div class="text-justify">
+        <h2>Nếu sách được trả lại bị hư hại</h2>
+        <p>Trong trường hợp sách được trả lại bị hư hại, quá trình đánh giá mức độ hư hại sẽ được thực hiện một cách cẩn thận và kỹ lưỡng. Chi phí sửa chữa sẽ được xác định dựa trên mức độ hư hại của sách, bao gồm cả việc thay thế các trang bị rách, bìa sách bị bong tróc hoặc bất kỳ hư hại nào khác làm ảnh hưởng đến tình trạng tổng thể của cuốn sách. Những chi phí này sẽ được trừ trực tiếp từ tiền đặt cọc mà người thuê đã thanh toán trước đó. Nếu tổng chi phí sửa chữa vượt quá số tiền đặt cọc đã được gửi, người thuê sẽ phải thanh toán số tiền bổ sung còn thiếu. Điều này nhằm đảm bảo rằng các tài sản của chúng tôi luôn được bảo trì trong tình trạng tốt nhất, và chúng tôi có thể tiếp tục cung cấp dịch vụ cho những khách hàng khác một cách hiệu quả nhất.</p>
+
+        <h2>Nếu sách được trả lại muộn</h2>
+        <p>Trong trường hợp sách được trả lại sau thời hạn quy định, phí trễ sẽ được tính toán dựa trên giá thuê hàng ngày của sách. Phí này sẽ được tính theo số ngày mà sách bị trả muộn, và sẽ được trừ từ tiền đặt cọc của người thuê. Chúng tôi khuyến khích khách hàng hãy đảm bảo trả sách đúng hạn để tránh phát sinh thêm chi phí không cần thiết. Việc trả sách muộn không chỉ ảnh hưởng đến người thuê mà còn có thể gây khó khăn cho những khách hàng khác đang chờ đợi để thuê sách đó. Vì vậy, hãy cố gắng quản lý thời gian và lịch trình của bạn để đảm bảo rằng bạn có thể trả sách đúng hạn, giúp duy trì sự hài lòng và thuận tiện cho tất cả mọi người.</p>
+    </div>
+</div>
+<!--  -->
+
+<th:block th:replace="~{Fragment/Footer :: footer}"></th:block>
+</body>
+</html>

@@ -1,0 +1,57 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+/*  Carousel */
+.carousel {
+    margin-bottom: 4rem;
+}
+
+.carousel-caption {
+    bottom: 3rem;
+    z-index: 10;
+}
+
+.carousel-item {
+    height: 29rem;
+}
+
+.carousel-item > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30rem;
+}
+
+.carousel-justify {
+    flex-wrap: wrap;
+}
+
+
+/*  end Carousel */
+
+/* Scroll Btn */
+#ScrollUpBtn {
+    position: fixed;
+    right: 2%;
+    bottom: 4%;
+    height: 2rem;
+    width: 2rem;
+    border: none;
+    border-radius: 1.25rem;
+    text-align: center;
+    cursor: pointer;
+    z-index: 500;
+    outline: none;
+    display: none;
+    background: rgb(9, 105, 218);
+}
+
+#ScrollUpBtn:hover {
+    background-color: rgb(8, 97, 199);
+}
+
+/* End Scroll Btn */

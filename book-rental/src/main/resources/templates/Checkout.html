@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{Fragment/Headeric :: head}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{Fragment/Header :: head}"></th:block>
+
+<!-- Main -->
+<script>
+    document.title = "Thanh toán | Thuê sách";
+</script>
+
+<div class="container">
+    <main>
+        <div class="py-5 text-center">
+            <h2>Thanh toán</h2>
+        </div>
+        <div class="row g-5">
+            <div class="col-md-5 col-lg-4 order-md-last">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-primary">Sách của bạn</span>
+                </h4>
+                <ul class="list-group mb-3 dark-background">
+                    <li class="list-group-item d-flex justify-content-center fw-bold lh-sm ">
+                        <div>
+                            <h2 class="my-0 fs-5 fw-bold" th:text="${session.book.getName()}"></h2>
+                        </div>
+                    </li>
+                    <li class="list-group-item justify-content-start lh-sm">
+
+                        <p>
+                            <span class="fw-bold">Giá thuê:</span>
+                            <span th:text="${session.book.getRent()}"></span>.000đ mỗi ngày
+                        </p>
+                        <p>
+                            <span class="fw-bold">Thời gian:</span>
+                            <span th:text="${session.duration}"></span> ngày
+                        </p>
+                        <p>
+                            <span class="fw-bold">Tổng tiền thuê:</span>
+                            <span th:text="${session.book.getRent() * session.duration}"></span>.000 đ
+                        </p>
+                        <p>
+                            <span class="fw-bold">Tiền đặt cọc <span style="color: red"><sup>*</sup></span>:</span>
+                            <span th:text="${session.book.getSecurity()}"></span>.000 đ
+                        </p>
+                        <p>
+                            <span class="fw-bold">Tổng giá:</span>
+                            <span th:text="${session.book.getRent()*1000 * session.duration + session.book.getSecurity()*1000}"></span> đ
+                        </p>
+                    </li>
+                </ul>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-center fw-bold lh-sm">
+                        <div>
+                            <h2 class="my-0 fs-5 fw-bold"><span style="color: red"><sup>*</sup></span>Điều khoản đặt cọc</h2>
+                        </div>
+                    </li>
+                    <li class="list-group-item justify-content-start lh-sm">
+                        <ol type="1">
+                            <li>
+                                Bạn cần nộp một bản sao và xuất trình thẻ CMND gốc cho nhân viên giao hàng.
+                            </li>
+                            <li>
+                                Tiền đặt cọc sẽ được hoàn lại khi chúng tôi nhận được sách trong tình trạng tốt.
+                            </li>
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-7 col-lg-8">
+                <form class="needs-validation" method="post" action="/index/payment" novalidate>
+                    <h4 class="mb-3">Địa chỉ giao hàng</h4>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label for="adr" class="form-label">Địa chỉ dòng 1</label>
+                            <input type="text" class="form-control" name="address" id = "adr" placeholder="Địa chỉ cụ thể" required>
+                            <div class="invalid-feedback">
+                                Vui lòng nhập địa chỉ giao hàng của bạn.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="address2" class="form-label">Địa chỉ dòng 2 </label>
+                            <input type="text" class="form-control" name="address2" id = "address2"  placeholder="Địa chỉ cụ thể">
+                        </div>
+
+                        <div class="col-3">
+                            <label for="pin" class="form-label">Mã pin</label>
+                            <input type="number" maxlength="6" class="form-control" name="pin" id = "pin" placeholder="Nhập mã pin"
+                                   required>
+                            <div class="invalid-feedback">
+                                Cần mã pin.
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="my-3">
+                        <div class="form-check">
+                            <input id="cod" name="paymentMethod" type="radio" value="COD" class="form-check-input"
+                                   checked required>
+                            <label class="form-check-label" for="cod">Thanh toán khi nhận hàng (COD)</label>
+                        </div>
+                        <div class="form-check">
+                            <input id="payU" name="paymentMethod" type="radio" value="payU" class="form-check-input"
+                                   required disabled>
+                            <label class="form-check-label" for="payU">Thanh toán trực tuyến</label>
+                        </div>
+                    </div>
+
+                    <hr class="my-4 invisible">
+
+                    <button class="w-100 btn btn-primary btn-lg" type="submit" name="submit">Đặt hàng
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+<script>
+    (function() {
+        'use strict'
+
+        let forms = document.querySelectorAll('.needs-validation');
+
+        Array.prototype.slice.call(forms)
+            .forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+<!--  -->
+
+<th:block th:replace="~{Fragment/Footer :: footer}"></th:block>
+</body>
+</html>

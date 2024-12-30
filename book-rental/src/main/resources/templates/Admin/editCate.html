@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:replace="~{/Admin/Fragment/Headeric :: head}"></th:block>
+</head>
+<body>
+<th:block th:replace ="~{/Admin/Fragment/Header :: head}"></th:block>
+<!-- Main content -->
+<main>
+  <div class="container pt-4">
+    <h4 class="fs-2 text-center ">Quản lí category </h4>
+    <hr>
+    <br>
+  </div>
+
+  <form method="post" action="/Admin/editCate">
+    <div class="form-outline mb-4 mx-5">
+      <input type="hidden" name="id" id="id" th:value="${category.getId()}" />
+
+      <input type="text" name="category" id="category" class="form-control"
+             th:value="${category.getCategory()}" required />
+      <label class="form-label" for="category">Nhập tên category</label>
+    </div>
+    <div class="mb-1 d-flex justify-content-center field_error">
+      <!-- Error message placeholder -->
+    </div>
+    <div class="mb-1 d-flex justify-content-center">
+      <span th:text="${res}"></span>
+    </div>
+    <div class="text-center">
+      <button type="submit" name="submit" class="btn btn-primary mx-5">Thay đổi</button>
+    </div>
+  </form>
+</main>
+
+</body>
+</html>

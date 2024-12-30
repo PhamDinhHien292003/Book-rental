@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cảm ơn đã đặt hàng!</title>
+    <th:block th:replace="~{Fragment/Headeric :: head}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{Fragment/Header :: head}"></th:block>
+
+<!-- Main -->
+<div class="container py-5 d-flex flex-column align-items-center justify-content-center">
+
+    <h2 class="text-center">Đơn Hàng Của Bạn Đã Được Xác Nhận! <i class="fas fa-truck-moving"></i></h2><br>
+
+    <p class="text-center">Mã đơn hàng của bạn là: #<strong th:text="${idorder}"></strong></p>
+
+    <p class="text-center"><strong>Cảm ơn bạn </strong> đã mua sắm với chúng tôi! Chúng tôi đang giao hàng cho bạn.</p>
+
+    <p class="text-center">Chúng tôi sẽ gửi email xác nhận vận chuyển khi mặt hàng được giao thành công.</p>
+    <p class="text-center">Đội ngũ Thuê Sách</p><br>
+</div>
+<!--  -->
+
+<th:block th:replace="~{Fragment/Footer :: footer}"></th:block>
+</body>
+</html>

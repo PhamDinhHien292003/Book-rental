@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{Fragment/Headeric :: head}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{Fragment/Header :: head}"></th:block>
+
+<!-- Main -->
+<script>
+    document.title = "Liên Hệ Chúng Tôi | Dịch Vụ Cho Thuê Sách";
+</script>
+<div class="container my-5" >
+    <div style="margin-top: 100px "></div>
+    <div class="d-flex justify-content-center">
+        <h1>Liên Hệ Chúng Tôi
+            <hr>
+        </h1>
+    </div>
+    <form method="post" action="handleContact">
+        <div class="col-md-4">
+            <label for="name" class="form-label fw-bold fs-5">Tên</label>
+            <input type="text" class="form-control" id="name" name="name" th:value="${user.getName()}" required readonly>
+        </div>
+        <div class="col-md-4">
+            <label for="email" class="form-label fw-bold fs-5">Email</label>
+            <input type="email" class="form-control" id="email" name="email" th:value="${user.getEmail()}" required readonly>
+        </div>
+        <div class="col-md-4">
+            <label for="mobile" class="form-label fw-bold fs-5">Số Điện Thoại</label>
+            <input type="tel" maxlength="12" class="form-control" id="mobile" name="mobile"
+                   th:value="${user.getPhoneNumber()}" required readonly>
+        </div>
+
+        <div class="col-md-12">
+            <label for="message" class="form-label fw-bold fs-5">Tin Nhắn</label>
+            <textarea maxlength="500" class="form-control" style="height:10rem" id="message" name="message"
+                      required></textarea>
+        </div>
+
+        <div class="text-center">
+            <div class="col-12">
+                <button class="btn btn-primary w-25" type="submit" name="submit">Gửi
+                </button>
+            </div>
+        </div>
+
+        <div>
+            <div class="alert alert-success" role="alert" th:if="${succesMsg != null}">
+                Đã ghi nhận phản hồi của bạn
+            </div>
+            <div class="alert alert-danger" role="alert" th:if="${danger != null}">
+                Có lỗi xảy ra
+            </div>
+
+        </div>
+    </form>
+</div>
+<div class="container my-3">
+    <div class="row">
+        <div class="col-6">
+            <a class="text-black text-decoration-none text-break fs-4"
+            ><i class="fas fa-envelope"></i> Gửi Email cho Chúng Tôi -
+                uneti@edu.vn</a>
+        </div>
+        <div class="col-6 text-end">
+            <a class="text-black text-decoration-none text-break fs-4 text-end" href="tel:+911234567890"><i
+                    class="fas fa-phone"></i> Gọi cho Chúng Tôi - +910JQK</a>
+        </div>
+    </div>
+</div>
+<!--  -->
+
+<th:block th:replace="~{Fragment/Footer :: footer}"></th:block>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<footer class="my-5 pt-5 text-muted text-center text-small " th:fragment="footer">
+  <p class="mb-1">&copy; 2024 Dịch Vụ Cho Thuê Sách</p>
+  <ul class="list-inline">
+    <li class="list-inline-item"><a href="/index/introduction">Về Chúng Tôi</a></li>
+    <li class="list-inline-item"><a href="/index/clause">Điều Khoản và Điều Kiện</a></li>
+    <li class="list-inline-item" th:if = "${session.user == null }"><a href="/Admin/Login">Đăng Nhập Quản Trị</a></li>
+  </ul>
+
+  <div id="scrollBtn">
+    <button onclick="topFunction()" id="ScrollUpBtn" title="Quay về đầu trang">
+      <span><i class="fas fa-chevron-up text-white"></i></span>
+    </button>
+    <script>
+      let mybutton = document.getElementById("ScrollUpBtn");
+
+      window.onscroll = function () {
+        scrollFunction();
+      };
+
+      function scrollFunction() {
+        if (
+                document.body.scrollTop > 20 ||
+                document.documentElement.scrollTop > 20
+        ) {
+          mybutton.style.display = "block";
+        } else {
+          mybutton.style.display = "none";
+        }
+      }
+
+      function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
+    </script>
+  </div>
+
+
+  <script th:src="@{/css/bootstrap/js/bootstrap.bundle.js}"></script>
+</footer>
+
+

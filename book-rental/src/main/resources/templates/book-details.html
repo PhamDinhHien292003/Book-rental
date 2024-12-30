@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{Fragment/Headeric :: head}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{Fragment/Header :: head}"></th:block>
+
+<div class="container-fluid py-5">
+    <div class="row mb-3">
+        <div class="col-6 col-sm-6 col-md-3 mt-3" >
+            <img class="card card-img-top border-dark rounded"
+                 th:src="@{/images/books/{img}(img=${details.img})}" height="396rem" width="260rem">
+        </div>
+        <div class="col-12 col-md-9">
+            <h2 id="bookName" class="text-uppercase font-weight-bold"><?php echo $getProduct['0']['name'] ?></h2>
+            <hr>
+            <h6>ISBN: <span class="fw-bolder"  th:text="${details.getIsbn()}"> </span></h6>
+            <h6>Tác Giả: <span class="fw-bolder" th:text="${details.getAuthor()}"></span></h6>
+            <p></p>
+            <p>
+                <span class="fs-4 fw-bolder" th:text="${details.getRent()}"></span><span
+                    class="fs-4"><strong>.000 VND (Mỗi Ngày)</strong></span>
+            </p>
+
+           <p th:if="${details.getQty() <= 0 }" class="fs-4" style="color: #ff0000">Xin lỗi, hiện tại sách này đã hết hàng</p>
+
+            <button th:if="${details.getQty() > 0}" id="toggle" class="btn-primary btn" onclick="showDiv()">Thuê</button>
+
+
+            <script>
+                function showDiv() {
+                    document.getElementById("after-rent").style.display = "block";
+                    document.getElementById("toggle").style.display = "none";
+                }
+            </script>
+
+            <div id="after-rent" class="mb-4" style="display: none">
+                <form method="get" action = "/index/check-out">
+                    <input type="hidden" name="bookId" th:value="${details.getId()}">
+                    <h4 class="mb-3">Nhập thời gian thuê (tính bằng ngày)</h4>
+                    <div class="col-2 d-flex">
+                        <input type="number" class="form-control" name="duration" min="10" max="200" placeholder="Ngày"
+                               required />
+                        <input type="submit" name="submit" value="Thuê" class="btn-primary btn ms-3">
+                    </div>
+                </form>
+            </div>
+
+            <h6 class="fw-bold fs-5 my-3">Mô Tả Ngắn</h6>
+            <p id="shortDescription" class="mt-3 text-justify" th:text="${details.getShortDesc()}">
+                </p>
+        </div>
+    </div>
+    <div class="accordion" id="accordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <h6 class="fs-5 ms-4">Mô Tả</h6>
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                 data-bs-parent="#accordion">
+                <div class="accordion-body">
+                    <p id="description" class="mb-3 text-justify" th:text="${details.getDescription()}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{Fragment/Footer :: footer}"></th:block>
+</body>
+</html>

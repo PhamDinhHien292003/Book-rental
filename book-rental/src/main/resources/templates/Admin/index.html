@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{/Admin/Fragment/Headeric :: head}"></th:block>
+</head>
+<body>
+<th:block th:replace ="~{/Admin/Fragment/Header :: head}"></th:block>
+<!-- Main content -->
+<main>
+    <div class="container pt-4">
+        <h4 class="fs-2 text-center">Danh Mục</h4>
+        <hr>
+        <br>
+    </div>
+    <h5 class="btn btn-white ms-5 px-2 py-1 fs-6">
+        <a class="link-dark" href="/Admin/addCate">Thêm Danh Mục</a>
+    </h5>
+    <div class="">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Danh Mục</th>
+                <th>Trạng Thái</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="row : ${category}">
+                <td th:text="${row.category}"></td>
+                <td>
+                    <a th:class="${row.status == 1} ? 'link-white btn btn-success px-2 py-1' : 'link-white btn btn-warning px-2 py-1'"
+                       th:href="@{/Admin/handleCate(id=${row.id}, method=${row.status == 1 ? 'deactive' : 'active'})}"
+                       th:text="${row.status == 1 ? 'Kích Hoạt' : 'Không Kích Hoạt'}"></a>
+                </td>
+                <td>
+                    <a class="link-white btn btn-primary px-2 py-1" th:href="@{/Admin/editCate(id=${row.id})}" th:text="'Sửa'"></a>
+                </td>
+                <td>
+                    <a class="link-white btn btn-danger px-2 py-1" th:href="@{/Admin/handleCate(id=${row.id}, method=${'del'})}" th:text="'Xóa'"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+
+</body>
+</html>

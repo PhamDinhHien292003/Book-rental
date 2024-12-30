@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{/Admin/Fragment/Headeric :: head}"></th:block>
+</head>
+<body>
+<th:block th:replace ="~{/Admin/Fragment/Header :: head}"></th:block>
+<!-- Main content -->
+<main>
+    <div class="container pt-4">
+        <h4 class="fs-2 text-center">Quản lí kho sách</h4>
+        <hr>
+        <br>
+    </div>
+    <h5 class="btn btn-white ms-5 px-2 py-1 fs-6">
+        <a class="link-dark" th:href="@{/Admin/addBook}">Thêm Sách</a>
+    </h5>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ISBN</th>
+                <th>Danh Mục</th>
+                <th>Hình Ảnh</th>
+                <th>Tên</th>
+                <th>Tác Giả</th>
+                <th>Giá Bán</th>
+                <th>Tiền Đặt Cọc</th>
+                <th>Thuê</th>
+                <th>Giá</th>
+                <th>Số Lượng</th>
+                <th>Trạng Thái Bán Chạy</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book : ${books}">
+                <td th:text="${book.getIsbn()}"></td>
+                <td th:text="${book.getCategoryId().getCategory()}"></td>
+                <td>
+                    <img th:src="@{/images/books/{img}(img=${book.img})}" class="card-img" height="60px" width="80px">
+                </td>
+                <td th:text="${book.getName()}"></td>
+                <td th:text="${book.getAuthor()}"></td>
+                <td th:text="${book.getMrp()}"></td>
+                <td th:text="${book.getSecurity()}"></td>
+                <td th:text="${book.getRent()}"></td>
+                <td th:text="${book.getPrice()}"></td>
+                <td th:text="${book.getQty()}"></td>
+                <td>
+                    <a th:class="${book.getBestSeller() == 1 ? 'link-white btn btn-primary' : 'link-white btn btn-success'}"
+                       th:href="@{/Admin/handleBook(id=${book.id}, method=${book.getBestSeller() == 1 ? 'deactive' : 'active'})}"
+                       th:text="${book.bestSeller == 1 ? 'Bán Chạy Nhất' : 'Bình Thường'}"></a>
+                </td>
+                <td>
+                    <a class="link-white btn btn-primary px-2 py-1" th:href="@{/Admin/editBook(id=${book.id})}">Sửa</a>
+                </td>
+                <td>
+                    <a class="link-white btn btn-danger px-2 py-1" th:href="@{/Admin/handleCate(id=${book.id}, method=${'del'})}" th:text="'Xóa'">Xóa</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>

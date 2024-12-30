@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{Fragment/Headeric :: head}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{Fragment/Header :: head}"></th:block>
+
+<!-- Main -->
+<script>
+    document.title = "Đơn hàng của tôi | Cho thuê sách";
+</script>
+<div class="container mt-5">
+    <div style="margin-top: 100px "></div>
+    <div class="d-flex justify-content-center">
+        <h1>Đơn hàng của tôi
+            <hr>
+        </h1>
+    </div>
+    <table class="table table-responsive">
+        <thead>
+        <tr>
+            <th>Mã Đơn Hàng</th>
+            <th>Ngày Đặt Hàng</th>
+            <th>Tên Sách</th>
+            <th>Giá</th>
+            <th>Thời Gian Thuê</th>
+            <th>Địa Chỉ</th>
+            <th>Phương Thức Thanh Toán</th>
+            <th>Tình Trạng Thanh Toán</th>
+            <th>Tình Trạng Đơn Hàng</th>
+            <th>Hành Động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Duyệt qua danh sách order -->
+        <tr th:each="item : ${order}">
+            <td># <span th:text="${item[0]}"></span></td>
+            <td><span th:text="${item[1]}"></span></td>
+            <td><span th:text="${item[2]}"></span></td>
+            <td><span th:text="${item[3]}"></span>.000đ</td>
+            <td><span th:text="${item[4]}"></span></td>
+            <td><span th:text="${item[5]}"></span></td>
+            <td><span th:text="${item[6]}"></span></td>
+            <td><span th:text="${item[7]}"></span></td>
+            <td><span th:text="${item[7]}"></span></td>
+            <td>
+                <a th:if="${item[7] != 'Đã hủy' and item[7] != 'Đã trả'}"
+                   class="link-white btn btn-danger px-2 py-1"
+                   th:href="@{'/index/cancel-order?id=' + ${item[0]}}">
+                    Hủy
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="scrollBtn">
+    <button onclick="topFunction()" id="ScrollUpBtn" title="Quay lại đầu trang">
+        <span><i class="fas fa-chevron-up text-white"></i></span>
+    </button>
+    <script>
+        let mybutton = document.getElementById("ScrollUpBtn");
+
+        window.onscroll = function () {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            if (
+                document.body.scrollTop > 20 ||
+                document.documentElement.scrollTop > 20
+            ) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+</div>
+
+<th:block th:replace="~{Fragment/Footer :: footer}"></th:block>
+</body>
+</html>

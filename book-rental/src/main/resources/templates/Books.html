@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{Fragment/Headeric :: head}"></th:block>
+</head>
+<body>
+<th:block th:replace ="~{Fragment/Header :: head}"></th:block>
+<style>
+    .form-select {
+        margin: 1rem 0;
+    }
+    .img-container {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .img-container img {
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        width: 100%;
+        height: auto;
+    }
+
+    .img-container:hover img {
+        transform: scale(1.1);
+        opacity: 0.5;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0; /* Căn lên trên cùng */
+        left: 0; /* Căn sang trái */
+        width: 100%; /* Chiều rộng đầy đủ */
+        height: 100%; /* Chiều cao đầy đủ */
+        background-color: rgba(0, 0, 0, 0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .img-container:hover .overlay {
+        opacity: 1;
+    }
+
+    .overlay a {
+        color: white;
+        text-decoration: none;
+        font-size: 24px;
+    }
+</style>
+<!-- main -->
+<script>
+    document.title = "Danh Mục Sách | Dịch Vụ Cho Thuê Sách";
+
+    function changeCategory() {
+        var selectBox = document.getElementById("categorySelect");
+        var selectedValue = selectBox.value;
+        window.location.href = "/index/books/" + selectedValue;
+    }
+</script>
+
+<div class="container-fluid" style="margin-top: 30px">
+    <div class="row py-3">
+        <div class="col-auto px-0">
+            <div id="sidebar" class="collapse-horizontal">
+                <div id="sidebar-nav" class="text-sm-start min-vh-100" th:if="${category != null}" >
+                    <select id="categorySelect" onchange="changeCategory()" class="form-select ms-1">
+                        <option value="0" disabled selected>Chọn danh mục</option>
+                        <th:block th:each="cate : ${category}">
+                            <option th:value="${cate.getId()}" th:text="${cate.getCategory()}"></option>
+                        </th:block>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <main class="ms-sm-auto col ps-md-2 pt-2 px-md-4">
+            <div class="row gy-3 text-center d-flex justify-content-start flex-wrap ms-3" th:if="${list_books.size() > 0 }">
+                <div class="col-6 col-md-4 col-lg-3" th:each="book : ${list_books}">
+                    <div class="card border-dark mt-3 shadow-sm product">
+                        <div class="img-container">
+                            <img id="card-img" alt="Hình Ảnh Sách" th:src="@{/images/books/{img}(img=${book.img})}"
+                                 class="card-img-top rounded" height="356rem" width="60rem" />
+                            <div class="overlay">
+                                <a th:href="@{/index/book-details/{id}(id= ${book.getId()})}"
+                                   class="btn-lg text-decoration-none rent-btn">Xem</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div th:if = "${list_books.size() == 0 }" style="margin: 20px 20px">
+                <p>Không tìm thấy sách trong danh mục này</p>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+
+
+
+<!--  End -->
+
+
+<th:block th:replace ="~{Fragment/Footer :: footer}"></th:block>
+</body>
+</html>
