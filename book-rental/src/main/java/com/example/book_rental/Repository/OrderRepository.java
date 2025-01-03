@@ -24,4 +24,16 @@ public interface OrderRepository extends JpaRepository<Orders , Integer> {
 
 
     public void deleteById(int id);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT o.id, o.date, b.name, od.price, od.time, CONCAT(o.address, ',', o.address2) AS address, " +
+            "o.payment_method, o.payment_status, os.status_name " +
+            "FROM orders o " +
+            "JOIN order_detail od ON o.id = od.order_id " + // Corrected to use od.order_id
+            "JOIN books b ON b.id = od.book_id " +
+            "JOIN order_status os ON os.id = o.order_status " +
+            "ORDER BY o.date DESC", nativeQuery = true)
+    List<Object[]> getAllOrder();
 }

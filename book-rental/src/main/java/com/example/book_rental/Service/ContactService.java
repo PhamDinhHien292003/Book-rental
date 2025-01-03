@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ContactService implements ContactImp {
@@ -34,5 +35,16 @@ public class ContactService implements ContactImp {
             ex.printStackTrace();
             return  false;
         }
+    }
+
+    @Override
+    public List<Contact_us> getAllContact() {
+        return contactRepository.findAll();
+    }
+
+    @Override
+    public boolean deleteContact(int id) {
+        contactRepository.deleteById(id);
+        return true;
     }
 }

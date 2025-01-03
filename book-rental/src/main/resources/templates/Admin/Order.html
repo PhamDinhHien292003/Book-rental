@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{/Admin/Fragment/Headeric :: head}"></th:block>
+</head>
+<body>
+<th:block th:replace ="~{/Admin/Fragment/Header :: head}"></th:block>
+<!-- Main content -->
+<main>
+    <div class="container pt-4">
+        <h4 class="fs-2 text-center">Đơn Hàng</h4>
+        <hr>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Mã Đơn Hàng</th>
+                <th>Ngày Đặt Hàng</th>
+                <th>Tên Sách</th>
+                <th>Giá Sách</th>
+                <th>Thời Gian Thuê</th>
+                <th>Địa Chỉ</th>
+                <th>Phương Thức Thanh Toán</th>
+                <th>Trạng Thái Thanh Toán</th>
+                <th>Trạng Thái Đơn Hàng</th>
+                <th>Thay Đổi Trạng Thái Đơn Hàng</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="order : ${orders}">
+                <tr>
+                    <td th:text="${order[0]}"></td>
+                    <td th:text="${#dates.format(order[1], 'yyyy-MM-dd')}"></td>
+                    <td th:text="${order[2]}"></td>
+                    <td th:text="${order[3]} + ' đ'"></td>
+                    <td th:text="${order[4]}"></td>
+                    <td th:text="${order[5]}"></td>
+                    <td th:text="${order[6]}"></td>
+                    <td th:text="${order[7]}"></td>
+                    <td th:text="${order[8]}"></td>
+                    <td>
+                        <th:block th:if="${order[8] != 'Đã Trả' && order[8] != 'Đã Hủy'}">
+                            <form method="post" th:action="@{/Admin/OrderManager}">
+                                <input type="hidden" th:value="${order[0]}" name="id">
+                                <select class="form-select" name="status_id" required>
+                                    <option value="">Chọn Trạng Thái</option>
+                                    <th:block th:each="statu : ${status}">
+                                        <option th:value="${statu.id}" th:text="${statu.getStatusName()}">
+                                        </option>
+                                    </th:block>
+                                </select>
+                                <input type="submit" value="Gửi" class="btn btn-primary mt-2">
+                            </form>
+                        </th:block>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+</body>
+</html>

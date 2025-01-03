@@ -8,7 +8,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -86,6 +88,20 @@ public class UserService implements UserImp {
 
         userRepository.save(users);
         return "";
+    }
+
+    @Override
+    public List<Users> getAllUser() {
+        return new ArrayList<>(userRepository.findAll());
+    }
+
+    @Override
+    public boolean deleteUser(int id) {
+        if(userRepository.findById(id).isPresent()) {
+            userRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
 

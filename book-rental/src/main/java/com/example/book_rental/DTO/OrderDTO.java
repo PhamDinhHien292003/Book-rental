@@ -1,6 +1,9 @@
 package com.example.book_rental.DTO;
 
+import com.example.book_rental.Entity.Order_details;
+
 import java.util.Date;
+import java.util.List;
 
 public class OrderDTO {
     private int id;
@@ -14,6 +17,31 @@ public class OrderDTO {
     private Date date;
     private int duration;
     private int userId; // Chỉ định userId thay vì đối tượng Users
+    private String  bookOrder;
+
+
+    public OrderDTO(int id, String address, String address2, int pin, String paymentMethod, int total, String paymentStatus, int orderStatus, Date date, int duration, int userId, String bookOrder) {
+        this.id = id;
+        this.address = address;
+        this.address2 = address2;
+        this.pin = pin;
+        this.paymentMethod = paymentMethod;
+        this.total = total;
+        this.paymentStatus = paymentStatus;
+        this.orderStatus = orderStatus;
+        this.date = date;
+        this.duration = duration;
+        this.userId = userId;
+        this.bookOrder = bookOrder;
+    }
+
+    public String getBookOrder() {
+        return bookOrder;
+    }
+
+    public void setBookOrder(String bookOrder) {
+        this.bookOrder = bookOrder;
+    }
 
     public OrderDTO() {
     }

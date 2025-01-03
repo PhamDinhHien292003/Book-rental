@@ -13,4 +13,6 @@ public interface OrderImp {
     public int addOrder(Users idUser, String adr , String adr2 , int pin , String payment , int total , String paymentStatus , int orderStatus , Date date , int duration , BookDTO book  );
     public List<Object[]> allListOfUser(String gmail);
     public boolean deleteOrder(int id);
+    public List<Object[]> orderList();
+    public boolean changeOrderStatus(int id , int idStatus);
 }

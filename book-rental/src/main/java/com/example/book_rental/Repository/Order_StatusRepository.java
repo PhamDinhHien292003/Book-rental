@@ -1,8 +1,8 @@
 package com.example.book_rental.Repository;
 
 import com.example.book_rental.Entity.Order_details;
+import com.example.book_rental.Entity.Order_status;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OrderDetailRepository extends JpaRepository<Order_details , Long> {
-    public Order_details findById(int id);
+public interface Order_StatusRepository extends JpaRepository<Order_status,Integer> {
 }

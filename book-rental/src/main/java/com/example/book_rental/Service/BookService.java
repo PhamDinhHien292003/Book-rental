@@ -10,6 +10,7 @@ import com.example.book_rental.Service.Imp.BookImp;
 import org.hibernate.query.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,6 +116,7 @@ public class BookService implements BookImp {
                 }catch (Exception ex ){
 
                 }
+                break ;
             }
 
             case "deactive" : {
@@ -129,6 +131,7 @@ public class BookService implements BookImp {
                 }catch (Exception ex ){
 
                 }
+                break ;
             }
 
             case "del" : {
@@ -142,6 +145,7 @@ public class BookService implements BookImp {
                 }catch (Exception ex ){
 
                 }
+                break ;
             }
         }
         return false;
@@ -175,6 +179,95 @@ public class BookService implements BookImp {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean editBook(int id, String ISBN, int category_id, String name, String author, int mrp, int security, int rent, Integer qty, MultipartFile img, String short_desc, String description) {
+        Books books = booksRepository.findByid(id);
+        books.setIsbn(ISBN);
+        Optional<Category> category = categoryRepository.findById(category_id);
+        if(category.isPresent()){
+            books.setCategory(category.get());
+            books.setName(name);
+            books.setAuthor(author);
+            books.setMrp(mrp);
+            books.setSecurity(security);
+            books.setRent(rent);
+            books.setQty(qty);
+            if(img != null)books.setImg(img.getOriginalFilename());
+            books.setShortDesc(short_desc);
+            books.setDescription(description);
+            booksRepository.save(books);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean addBook(String ISBN, int category_id, String name, String author, int mrp, int security, int rent, Integer qty, MultipartFile img, String short_desc, String description) {
+        Optional<Category> category = categoryRepository.findById(category_id);
+        if (category.isPresent()) {
+            String imgFileName = img.getOriginalFilename(); // Lấy tên file hình ảnh
+            // Nếu cần, bạn có thể lưu hình ảnh vào thư mục và lấy đường dẫn
+            // Ví dụ: String imgPath = saveImage(img);
+
+            // Tạo đối tượng Books với các tham số đã cho
+            Books books = new Books(
+                    category.get(), // Lấy Category từ Optional
+                    ISBN,
+                    name,
+                    imgFileName, // Hoặc imgPath nếu bạn đã lưu hình ảnh
+                    author,
+                    mrp,
+                    security,
+                    rent,
+                    qty,
+                    0, // bestSeller, có thể thay đổi theo logic của bạn
+                    short_desc,
+                    description,
+                    true // status, có thể thay đổi theo logic của bạn
+            );
+
+            // Giả sử bạn có một phương thức lưu sách
+            booksRepository.save(books); // Lưu sách vào cơ sở dữ liệu
+            return true;
+        }
+        return false; // Trả về false nếu không tìm thấy danh mục
+    }
+
+    @Override
+    public boolean bookEdit(int id, String method) {
+        Books book = booksRepository.findByid(id);
+        switch (method){
+            case "deactive" : {
+                if(book != null){
+                    book.setBestSeller(0);
+                    booksRepository.save(book);
+                    return true ;
+                }
+                break ;
+            }
+
+            case "active" : {
+                if(book != null){
+                    book.setBestSeller(1);
+                    booksRepository.save(book);
+                    return true ;
+                }
+                break ;
+
+            }
+            case "del" : {
+                if(book != null){
+                    booksRepository.deleteById(id);
+                    return true ;
+                }
+                break ;
+
+            }
+
+        }
+        return false ;
     }
 
 
