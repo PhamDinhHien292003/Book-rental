@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{/Admin/Fragment/Headeric :: head}"></th:block>
+</head>
+<body>
+<th:block th:replace ="~{/Admin/Fragment/Header :: head}"></th:block>
+<!-- Main content -->
+
+<main>
+    <div class="container pt-4">
+        <h4 class="fs-2 text-center">Quản Lý Sách</h4>
+        <hr>
+        <br>
+    </div>
+
+    <form method="get" enctype="multipart/form-data" th:action="@{/Admin/updateBook}">
+        <input type="hidden" name="id" th:value="${book.getId()}" />
+        <div class="row g-3">
+            <div class="col-sm-8">
+                <div class="form-outline mb-4 ms-5">
+                    <input type="text" name="ISBN" th:value="${book.getIsbn()}" id="isbn" class="form-control" required />
+                    <label class="form-label" for="isbn">Nhập ISBN sách</label>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div>
+                    <select class="form-select" name="category_id">
+                        <option value="">Chọn Danh Mục</option>
+                        <th:block th:each="row : ${category}">
+                            <option th:value="${row.id}"
+                                    th:text="${row.category}"
+                                    th:selected="${row.id == book.getCategoryId().getId()}"></option>
+                            </option>
+                        </th:block>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-outline mb-4 mx-5">
+            <input type="text" name="name" th:value="${book.getName()}" id="bookName" class="form-control" required />
+            <label class="form-label" for="bookName">Nhập tên sách</label>
+        </div>
+
+        <div class="form-outline mb-4 mx-5">
+            <input type="text" name="author" th:value="${book.getAuthor()}" id="author" class="form-control" required />
+            <label class="form-label" for="author">Nhập tên tác giả</label>
+        </div>
+
+        <div class="form-outline mb-4 mx-5">
+            <input type="number" name="mrp" th:value="${book.getMrp()}" id="mrp" class="form-control" required />
+            <label class="form-label" for="mrp">Nhập MRP</label>
+        </div>
+
+        <div class="form-outline mb-4 mx-5">
+            <input type="number" name="security" th:value="${book.getSecurity()}" id="security" class="form-control" required />
+            <label class="form-label" for="security">Nhập chi phí đặt cọc sách</label>
+        </div>
+
+        <div class="form-outline mb-4 mx-5">
+            <input type="number" name="rent" th:value="${book.getRent()}" id="rent" class="form-control" required />
+            <label class="form-label" for="rent">Nhập chi phí thuê sách</label>
+        </div>
+
+        <div class="form-outline mb-4 mx-5">
+            <input type="number" name="qty" th:value="${book.getQty()}" id="qty" class="form-control" required />
+            <label class="form-label" for="qty">Nhập số lượng sách</label>
+        </div>
+
+        <div class="form-outline mb-4 mx-5">
+            <label class="form-label ms-2 p-1" for="file">Nhập hình ảnh sách</label>
+            <input type="file" name="img" id="file" class="form-control" onchange="updateFileName()" />
+            <input type="text" name="img-text" id="fileName" class="form-control mt-2"  readonly />
+        </div>
+
+        <div class="form-outline mb-4 mx-5">
+            <textarea name="short_desc" id="shortDesc" class="form-control" required th:text="${book.getShortDesc()}"></textarea>
+            <label class="form-label" for="shortDesc">Nhập mô tả ngắn sách</label>
+        </div>
+
+        <div class="form-outline mb-4 mx-5">
+            <textarea name="description" id="description" class="form-control" required th:text="${book.getDescription()}"></textarea>
+            <label class="form-label" for="description">Nhập mô tả sách</label>
+        </div>
+
+        <div class="mb-1 d-flex justify-content-center field_error">
+<!--            <span th:text="${book}"></span>-->
+        </div>
+        <div class="mb-1 d-flex justify-content-center">
+<!--            <span th:text="${error}"></span>-->
+        </div>
+
+        <div class="text-center">
+            <button type="submit" name="submit" class="btn btn-primary mx-5">Gửi</button>
+        </div>
+    </form>
+</main>
+
+<script>
+    function updateFileName() {
+        const fileInput = document.getElementById('file');
+        const fileNameInput = document.getElementById('fileName');
+        fileNameInput.value = fileInput.files.length > 0 ? fileInput.files[0].name : '';
+    }
+</script>
+
+
+</body>
+</html>

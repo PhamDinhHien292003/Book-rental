@@ -54,10 +54,10 @@
                        th:text="${book.bestSeller == 1 ? 'Bán Chạy Nhất' : 'Bình Thường'}"></a>
                 </td>
                 <td>
-                    <a class="link-white btn btn-primary px-2 py-1" th:href="@{/Admin/editBook(id=${book.id})}">Sửa</a>
+                    <a class="link-white btn btn-primary px-2 py-1" th:href="@{/Admin/updateBook(id=${book.id})}">Sửa</a>
                 </td>
                 <td>
-                    <a class="link-white btn btn-danger px-2 py-1" th:href="@{/Admin/handleCate(id=${book.id}, method=${'del'})}" th:text="'Xóa'">Xóa</a>
+                    <a class="link-white btn btn-danger px-2 py-1" th:href="@{/Admin/handleBook(id=${book.id}, method=${'del'})}" th:text="'Xóa'">Xóa</a>
                 </td>
             </tr>
             </tbody>

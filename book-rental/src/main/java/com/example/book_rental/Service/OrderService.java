@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService implements OrderImp {
@@ -32,6 +33,8 @@ public class OrderService implements OrderImp {
 
     @Autowired
     BooksRepository booksRepository;
+
+
 
 
 
@@ -68,6 +71,11 @@ public class OrderService implements OrderImp {
         }
     }
 
+    @Override
+    public List<Object[]> orderList() {
+        return orderRepository.getAllOrder();
+    }
+
     public OrderDTO toDTO(Orders order) {
         return new OrderDTO(
                 order.getId(),                // ID đơn hàng
@@ -97,6 +105,14 @@ public class OrderService implements OrderImp {
     }
 
 
-
+    public boolean changeOrderStatus(int id , int idStatus ){
+        Optional<Orders> order = orderRepository.findById(id);
+        if(order.isPresent()){
+            order.get().setOrderStatus(idStatus);
+            orderRepository.save(order.get());
+            return true;
+        }
+        return false ;
+    }
 
 }
